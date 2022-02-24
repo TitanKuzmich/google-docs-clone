@@ -1,9 +1,9 @@
 {
   "version": "0.0.0",
   "scripts": {
-    "dev": "../node_modules/.bin/vite",
-    "build": "../node_modules/.bin/vite build",
-    "serve": "../node_modules/.bin/vite preview"
+    "dev": "./node_modules/.bin/vite",
+    "build": "./node_modules/.bin/vite build",
+    "serve": "./node_modules/.bin/vite preview"
   },
   "dependencies": {
     "axios": "^0.26.0",
@@ -20,6 +20,8 @@
     "redux-act": "^1.7.6",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "2.4.1",
+    "socket.io-client": "^4.4.1",
+    "uuid": "^8.3.2",
     "vite-plugin-environment": "^1.1.0"
   },
   "devDependencies": {

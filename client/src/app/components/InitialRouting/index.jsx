@@ -1,15 +1,22 @@
 import React from 'react'
-import {Route, Routes} from "react-router-dom"
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom"
+import { v4 as uuidV4 } from 'uuid'
 
 import HomeScreen from "pages/HomeScreen"
 
 const InitialRouting = () => {
+    const navigate = useNavigate()
+
     return (
         <>
             <Routes>
                 <Route
-                    path="/"
+                    path='/documents/:id'
                     element={<HomeScreen/>}
+                />
+                <Route
+                    path='/'
+                    element={<Navigate to={`/documents/${uuidV4()}`} />}
                 />
             </Routes>
         </>
