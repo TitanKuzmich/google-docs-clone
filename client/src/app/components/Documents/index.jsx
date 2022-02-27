@@ -18,7 +18,6 @@ const radioGroupItems = [
 const Documents = () => {
     const [isFixed, setFixed] = useState(false)
     const [isSortOpen, setSortOpen] = useState(false)
-    // const [blockClickOutside, setBlockClickOutside] = useState(false)
     const [filter, setFilter] = useState(radioGroupItems[0].value)
 
     const popupRef = useRef(null)
@@ -76,7 +75,7 @@ const Documents = () => {
                     </div>
                 </div>
 
-                <div className={style.document_content}>
+                <div className={cn(style.document_content, {[style.document_content__mt]: isFixed})}>
                     {docsInfo.map((item) => (
                         <Document
                             key={item.id}

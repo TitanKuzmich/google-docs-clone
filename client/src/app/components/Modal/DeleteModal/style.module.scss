@@ -1,0 +1,21 @@
+@import "styles/palette";
+
+.modal {
+  &_header__text {
+    font-size: 18px;
+    color: $white;
+  }
+
+  &_content__text {
+    font-size: 16px;
+    color: $black
+  }
+}
+
+
+
+
+
+
+
+
