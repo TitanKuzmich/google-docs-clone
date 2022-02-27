@@ -5,4 +5,4 @@ const Document = new Schema({
     data: Object
 })
 
-export default model('Document', Document)
+module.exports = model("Document", Document)

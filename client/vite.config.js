@@ -2,11 +2,15 @@ import path from 'path'
 import {defineConfig} from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import EnvironmentPlugin from "vite-plugin-environment"
+import createSvgSpritePlugin from 'vite-plugin-svg-sprite'
 
 export default defineConfig({
     plugins: [
         reactRefresh(),
-        EnvironmentPlugin('all', {prefix: ''})
+        EnvironmentPlugin('all', {prefix: ''}),
+        createSvgSpritePlugin({
+            symbolId: '[name]_[hash]',
+        }),
     ],
     resolve: {
         alias: {

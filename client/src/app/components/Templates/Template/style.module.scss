@@ -1,0 +1,42 @@
+@import "styles/palette";
+
+.template_item {
+  cursor: pointer;
+  border-radius: 6px;
+
+  img {
+    width: 140px;
+    height: 180px;
+    border: 1px solid transparent;
+    transition: all .3s ease;
+  }
+
+  &:hover {
+    img {
+      border: 1px solid $blue;
+    }
+  }
+
+  h3 {
+    font-weight: 500;
+    font-size: 16px;
+    color: $black;
+    margin: 10px 0 5px 0;
+  }
+
+  h4 {
+    font-weight: 300;
+    font-size: 14px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

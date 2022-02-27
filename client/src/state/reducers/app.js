@@ -2,7 +2,10 @@ import { createReducer } from "redux-act"
 
 import * as actions from "../actions/app"
 
-const defaultState = { notifications: [] }
+const defaultState = {
+    notifications: [],
+    docId: null
+}
 
 const app = createReducer(
     {
@@ -16,6 +19,12 @@ const app = createReducer(
             return {
                 ...state,
                 notifications: state.notifications.filter(notification => notification.uuid !== payload.uuid)
+            }
+        },
+        [actions.enterDoc.getType()](state, payload) {
+            return {
+                ...state,
+                roomId: payload.docId
             }
         }
     },

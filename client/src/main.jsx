@@ -6,7 +6,6 @@ import {BrowserRouter} from "react-router-dom"
 import App from "./App"
 import store from "state/store"
 
-import 'quill/dist/quill.snow.css'
 import "styles/general.scss"
 
 ReactDOM.render(

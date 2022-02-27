@@ -1,9 +1,7 @@
 const mongoose = require('mongoose')
 const Document = require('./Document')
 
-mongoose.connect('mongodb://localhost/google-docs-clone', {
-    connection_timeout: 1000
-})
+mongoose.connect('mongodb://localhost/google-docs-clone')
 
 const io = require('socket.io')(3001, {
     cors: {
@@ -21,6 +19,7 @@ io.on('connection', socket => {
         socket.emit('load-document', document.data)
 
         socket.on('send-changes', delta => {
+            console.log(delta)
             socket.broadcast.to(documentId).emit('received-changes', delta)
         })
 
