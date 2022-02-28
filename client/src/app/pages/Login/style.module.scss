@@ -1,0 +1,73 @@
+@import "styles/palette";
+
+.login {
+  &_wrapper {
+    background-color: $grey;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+  }
+
+  &_container {
+    padding: 50px;
+    text-align: center;
+    background-color: $white;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px $opacityRgba, 0 1px 2px $opacityRgba1;
+
+    img {
+      object-fit: contain;
+      height: 100px;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 20px;
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+  }
+
+  &_submit {
+    background-color:$blue;
+    color: $white;
+    border-radius: 6px;
+    font-size: 26px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all .3s ease;
+    width: fit-content;
+    border: 1px solid transparent;
+    margin: 0 auto;
+
+    &:hover {
+      border: 1px solid $blue;
+      background-color:$white;
+      color: $blue;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

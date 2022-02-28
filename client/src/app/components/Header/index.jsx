@@ -1,5 +1,7 @@
 import React from 'react'
+import {useAuthState} from "react-firebase-hooks/auth"
 
+import {auth} from "lib/firebase"
 import Icon from "components/Icon"
 
 import style from './style.module.scss'
@@ -7,6 +9,8 @@ import images from 'assets/img'
 import icons from 'assets/svg'
 
 const Header = () => {
+    const [user] = useAuthState(auth)
+
     return (
         <div className={style.header}>
             <div className={style.header_logo}>
@@ -30,8 +34,9 @@ const Header = () => {
                 </div>
 
                 <img
-                    src="https://sun9-35.userapi.com/impg/HfJILJmnmK331IbsubOngIgPQPFbUqRfp2vGVA/EB2spfMb9vo.jpg?size=1080x1350&quality=96&sign=db2f728a7775bfaec7e4d583a94f1f60&type=album"
-                    alt="avatar"/>
+                    src={user?.photoURL}
+                    alt={user?.displayName}
+                />
             </div>
         </div>
     )

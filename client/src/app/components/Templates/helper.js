@@ -21,7 +21,7 @@ export const templatesInfo = [
     {
         img: images.Notes,
         title: "Meeting Notes",
-        subtitle: "Modernn Winter",
+        subtitle: "Modern Winter",
         action: () => {}
     },
     {
@@ -31,7 +31,7 @@ export const templatesInfo = [
         action: () => {}
     },
     {
-        img: images.Notes,
+        img: images.Newsletter,
         title: "Neewsletter",
         subtitle: "Lively",
         action: () => {}

@@ -1,0 +1,52 @@
+@import "styles/palette";
+
+.modal {
+  &_header__text {
+    font-size: 18px;
+    color: $white;
+  }
+
+  &_content__input {
+    position: relative;
+
+    input {
+      border: none;
+      font-size: 18px;
+      padding: 6px 12px;
+      display: block;
+      width: 100%;
+      color: $black;
+      background-color: transparent;
+    }
+
+    &:after, &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      width: 100%;
+      transform: scale(0);
+      background-color: $greyLight;
+      transform-origin: left center;
+      transition: transform .15s ease-in;
+    }
+
+    &:before {
+      background-color: $grey;
+      transform: scale(1)
+    }
+
+    &:focus-within:after {
+      transform: scale(1);
+    }
+  }
+}
+
+
+
+
+
+
+
+
