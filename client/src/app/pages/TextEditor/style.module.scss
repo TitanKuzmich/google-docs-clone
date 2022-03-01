@@ -1,0 +1,94 @@
+@import "styles/palette";
+@import "styles/mixins";
+
+.header {
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  background-color: $white;
+  padding: 15px 30px;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  justify-content: center;
+
+  &_logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    img {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+    }
+
+    p {
+      font-size: 28px;
+      color: $greyDark;
+    }
+  }
+
+  &_apps {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .icon_wrapper {
+      @include icon_wrapper($grey);
+    }
+
+    .apps_icon {
+      fill: $greyDark;
+    }
+
+    img {
+      margin-left: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 100%;
+      cursor: pointer;
+    }
+  }
+}
+
+.editor {
+  &_wrapper {
+    background-color: $grey;
+  }
+
+  &_toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 70px;
+    left: 0;
+    z-index: 50;
+    margin: 0 auto 12px auto;
+    background-color: $white;
+    box-shadow: 0 0 5px 0 $shadowRgba;
+  }
+
+  &_page {
+    width: 6.5in;
+    height: 9in;
+    padding: 10px;
+    background-color: $white;
+    margin: 90px auto 0 auto;
+    box-shadow: 0 0 5px 0 $shadowRgba;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

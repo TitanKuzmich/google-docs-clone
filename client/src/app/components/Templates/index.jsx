@@ -1,17 +1,34 @@
 import React, {useState} from 'react'
+import firebase from "firebase/compat"
 
 import Icon from "components/Icon"
 import Template from "components/Templates/Template"
+import CreateBlankModal from "components/Modal/CreateBlankModal"
+import {auth, db} from "lib/firebase"
 
 import style from './style.module.scss'
 import icons from "assets/svg"
 import images from "assets/img"
-import CreateBlankModal from "components/Modal/CreateBlankModal"
+import {useAuthState} from "react-firebase-hooks/auth"
 
 const Templates = () => {
+    const [user] = useAuthState(auth)
+
     const [isCreateOpen, setCreateOpen] = useState(false)
+    const [name, setName] = useState("")
 
     const onSubmit = () => {
+        if(!name) return
+
+        db.collection('userDocs')
+            .doc(user?.email)
+            .collection('docs')
+            .add({
+                title: name,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            })
+
+        setName('')
         setCreateOpen(false)
     }
 
@@ -20,6 +37,8 @@ const Templates = () => {
 
             {isCreateOpen && (
                 <CreateBlankModal
+                    name={name}
+                    setName={setName}
                     onConfirmAction={onSubmit}
                     onCloseAction={() => setCreateOpen(false)}
                 />

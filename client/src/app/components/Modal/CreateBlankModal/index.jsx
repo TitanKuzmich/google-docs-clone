@@ -1,11 +1,10 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import Modal from "components/Modal"
 
 import style from './style.module.scss'
 
-const CreateBlankModal = ({onConfirmAction, onCloseAction}) => {
-    const [name, setName] = useState("")
+const CreateBlankModal = ({onConfirmAction, onCloseAction, name, setName}) => {
 
     const header = () => {
         return (

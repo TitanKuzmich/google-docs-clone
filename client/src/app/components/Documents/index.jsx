@@ -1,24 +1,38 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import cn from 'classnames'
+import {useAuthState} from "react-firebase-hooks/auth"
+import {useCollectionOnce} from "react-firebase-hooks/firestore"
 
+import {auth, db} from "lib/firebase"
 import Icon from "components/Icon"
 import Document from "components/Documents/Document"
 import RadioGroup from "components/Radio/Group"
-import {docsInfo} from "components/Documents/helper"
 
 import style from './style.module.scss'
 import icons from "assets/svg"
+import images from "assets/img"
 
 const radioGroupItems = [
     {value: "title", label: "Title"},
-    {value: "last", label: "Last Opened"},
-    {value: "created", label: "Created Date"}
+    {value: "lastModified", label: "Last Opened"},
+    {value: "createdAt", label: "Created Date"}
 ]
 
 const Documents = () => {
+    const [user] = useAuthState(auth)
+
     const [isFixed, setFixed] = useState(false)
     const [isSortOpen, setSortOpen] = useState(false)
-    const [filter, setFilter] = useState(radioGroupItems[0].value)
+    const [filter, setFilter] = useState(radioGroupItems[2].value)
+
+
+    const [snapshot] = useCollectionOnce(
+        db
+            .collection('userDocs')
+            .doc(user.email)
+            .collection('docs')
+            .orderBy(filter, 'desc')
+    )
 
     const popupRef = useRef(null)
 
@@ -76,13 +90,22 @@ const Documents = () => {
                 </div>
 
                 <div className={cn(style.document_content, {[style.document_content__mt]: isFixed})}>
-                    {docsInfo.map((item) => (
+                    {/*{docsInfo.map((item) => (*/}
+                    {/*    <Document*/}
+                    {/*        key={item.id}*/}
+                    {/*        id={item.id}*/}
+                    {/*        title={item.title}*/}
+                    {/*        date={item.date}*/}
+                    {/*        img={item.img}*/}
+                    {/*    />*/}
+                    {/*))}*/}
+                    {snapshot?.docs.map((item) => (
                         <Document
                             key={item.id}
                             id={item.id}
-                            title={item.title}
-                            date={item.date}
-                            img={item.img}
+                            title={item.data().title}
+                            date={item.data().createdAt}
+                            img={images.Plus}
                         />
                     ))}
                 </div>

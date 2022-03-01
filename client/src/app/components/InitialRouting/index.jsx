@@ -1,21 +1,27 @@
 import React from 'react'
-import {Navigate, Route, Routes, useNavigate} from "react-router-dom"
+import {Navigate, Route, Routes} from "react-router-dom"
 
 import HomeScreen from "pages/HomeScreen"
+import TextEditor from "pages/TextEditor"
 
 const InitialRouting = () => {
-    const navigate = useNavigate()
 
     return (
         <>
             <Routes>
                 <Route
-                    path='/'
-                    element={<Navigate to='/docs'/>}
+                    path="/"
+                    element={<Navigate to="/docs"/>}
                 />
+
                 <Route
-                    path='/docs'
+                    path="/docs"
                     element={<HomeScreen/>}
+                />
+
+                <Route
+                    path="edit/:id"
+                    element={<TextEditor/>}
                 />
             </Routes>
         </>
