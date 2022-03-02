@@ -4,7 +4,7 @@ import {BallTriangle} from "react-loader-spinner"
 
 import {auth} from "lib/firebase"
 import InitialRouting from "components/InitialRouting"
-import Login from "pages/Login"
+import Auth from "pages/Auth"
 
 import images from "assets/img"
 
@@ -26,7 +26,7 @@ const App = () => {
 
     return (
         <div className="app">
-            {!user ? <Login /> : <InitialRouting />}
+            {!user ? <Auth /> : <InitialRouting />}
         </div>
     )
 }

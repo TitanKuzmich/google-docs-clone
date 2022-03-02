@@ -1,3 +1,40 @@
+@mixin auth_container() {
+  background-color: $white;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px $opacityRgba, 0 1px 2px $opacityRgba1;
+  overflow: hidden;
+}
+
+@mixin input() {
+  border: none;
+  font-size: 18px;
+  padding: 6px 12px;
+  display: block;
+  width: 100%;
+  color: $black;
+  background-color: transparent;
+}
+
+@mixin underline($afterBg, $beforeBg) {
+  &:after, &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    transform: scale(0);
+    background-color: $afterBg;
+    transform-origin: left center;
+    transition: transform .15s ease-in;
+  }
+
+  &:before {
+    background-color: $beforeBg;
+    transform: scale(1)
+  }
+}
+
 @mixin icon_wrapper($bg) {
   cursor: pointer;
   border-radius: 100%;

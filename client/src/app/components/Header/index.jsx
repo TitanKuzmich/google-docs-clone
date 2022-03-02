@@ -101,11 +101,20 @@ const Header = () => {
                 </div>
 
                 <div className={cn(style.header_avatar, {[style.header_avatar__open]: isInfoOpen})}>
-                    <img
-                        src={user?.photoURL}
-                        alt={user?.displayName}
-                        onClick={() => setInfoOpen(!isInfoOpen)}
-                    />
+                    {user?.photoURL || user?.displayName ?(
+                        <img
+                            src={user?.photoURL}
+                            alt={user?.displayName}
+                            onClick={() => setInfoOpen(!isInfoOpen)}
+                        />
+                    ) : (
+                        <div
+                            className={style.header_avatar__blank}
+                            onClick={() => setInfoOpen(!isInfoOpen)}
+                        >
+                            {user?.email.slice(0, 2)}
+                        </div>
+                    )}
 
                     <div ref={popupRef}>
                         {isInfoOpen && (
