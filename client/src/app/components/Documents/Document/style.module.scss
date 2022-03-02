@@ -56,9 +56,11 @@
       margin-bottom: 5px;
     }
 
-    h4 {
+    div {
       font-weight: 300;
       font-size: 14px;
+      display: grid;
+      grid-template-columns: 62px auto;
     }
   }
 }

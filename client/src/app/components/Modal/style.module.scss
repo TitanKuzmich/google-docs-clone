@@ -24,6 +24,7 @@
     margin: 0 50px;
     border-radius: 6px;
     overflow: hidden;
+    z-index: 30;
   }
 
   &_header {
@@ -72,9 +73,10 @@
     padding: 6px 12px;
     cursor: pointer;
     transition: all .3s ease;
+    border: 1px solid transparent;
 
     &:hover {
-
+      border: 1px solid $blue;
       background-color:$white;
       color: $blue;
     }

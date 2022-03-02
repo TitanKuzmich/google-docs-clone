@@ -4,7 +4,7 @@ import {useAuthState} from "react-firebase-hooks/auth"
 import {useDispatch, useSelector} from "react-redux"
 
 import * as actions from "state/actions/app"
-import {onSubmit} from "state/dispatchers/app"
+import {createDocument} from "state/dispatchers/document"
 
 import Icon from "components/Icon"
 import Template from "components/Templates/Template"
@@ -19,6 +19,7 @@ const Templates = () => {
     const [user] = useAuthState(auth)
 
     const {isCreateDocOpen} = useSelector((state) => state.app)
+    const {filter} = useSelector((state) => state.document)
     const dispatch = useDispatch()
 
     const [name, setName] = useState("")
@@ -31,7 +32,7 @@ const Templates = () => {
                     <CreateBlankModal
                         name={name}
                         setName={setName}
-                        onConfirmAction={() => onSubmit(name, setName, user)}
+                        onConfirmAction={() => dispatch(createDocument(name, setName, user, filter))}
                         onCloseAction={() => dispatch(actions.closeCreateDoc())}
                     />
                 )}

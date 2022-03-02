@@ -4,6 +4,7 @@ import Radio from "./index"
 
 const RadioGroup = ({ value, items, className, onChange }) => {
   const changeHandle = (item) => {
+    console.log(item)
     if (onChange) {
       onChange(item)
     }

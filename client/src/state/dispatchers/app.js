@@ -23,18 +23,3 @@ export const newNotification =
 export const removeNotification = (payload) => (dispatch) => {
     dispatch(actions.removeNotificationRequest({ uuid: payload.uuid }))
 }
-
-export const onSubmit = (name, setName, user) => (dispatch) => {
-    if (!name) return
-
-    db.collection('userDocs')
-        .doc(user?.email)
-        .collection('docs')
-        .add({
-            title: name,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        })
-
-    setName('')
-    dispatch(actions.closeCreateDoc)
-}

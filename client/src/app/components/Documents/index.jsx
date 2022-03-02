@@ -2,52 +2,51 @@ import React, {useEffect, useRef, useState} from 'react'
 import cn from 'classnames'
 import {useAuthState} from "react-firebase-hooks/auth"
 import {useCollectionOnce} from "react-firebase-hooks/firestore"
+import {doc, getDoc} from "firebase/firestore"
 import {BallTriangle} from "react-loader-spinner"
 import {useDispatch, useSelector} from "react-redux"
 
 import * as actions from "state/actions/app"
-import {onSubmit} from "state/dispatchers/app"
 
 import {auth, db} from "lib/firebase"
 import Icon from "components/Icon"
 import Document from "components/Documents/Document"
 import RadioGroup from "components/Radio/Group"
-import CreateBlankModal from "components/Modal/CreateBlankModal"
 
 import style from './style.module.scss'
 import icons from "assets/svg"
 import images from "assets/img"
+import * as log from "sass"
+import {getDocumentList} from "state/dispatchers/document"
 
 const radioGroupItems = [
-    {value: "title", label: "Title"},
-    {value: "lastModified", label: "Last Opened"},
-    {value: "createdAt", label: "Created Date"}
+    {value: "title", label: "Title", order: "asc"},
+    {value: "lastModified", label: "Last Opened", order: "desc"},
+    {value: "createdAt", label: "Created Date", order: "desc"}
 ]
 
 const Documents = () => {
     const [user] = useAuthState(auth)
 
-    const {isCreateDocOpen} = useSelector((state) => state.app)
     const dispatch = useDispatch()
+    const {documents, isLoading} = useSelector(state => state.document)
 
-    const [name, setName] = useState("")
     const [isFixed, setFixed] = useState(false)
     const [isSortOpen, setSortOpen] = useState(false)
-    const [filter, setFilter] = useState(radioGroupItems[2].value)
-
-
-    const [snapshot, loadingSnapshot] = useCollectionOnce(
-        db
-            .collection('userDocs')
-            .doc(user.email)
-            .collection('docs')
-            .orderBy(filter, 'desc')
-    )
+    const [filter, setFilter] = useState({
+        title: radioGroupItems[2].title,
+        value: radioGroupItems[2].value,
+        order: radioGroupItems[2].order
+    })
 
     const popupRef = useRef(null)
 
     const onSetFilter = (option) => {
-        option.value && setFilter(option.value)
+        option.value && setFilter({
+            title: option.title,
+            value: option.value,
+            order: option.order
+        })
     }
 
     const onFixContentHeader = () => {
@@ -71,7 +70,11 @@ const Documents = () => {
         return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [popupRef])
 
-    if (loadingSnapshot) {
+    useEffect(async () => {
+        dispatch(getDocumentList(user, filter))
+    }, [filter])
+
+    if (isLoading) {
         return (
             <div className="app_loading app_loading__documents">
                 <div className="app_loading_contents">
@@ -102,7 +105,7 @@ const Documents = () => {
                             {isSortOpen && (
                                 <div className={style.sort_pop_up}>
                                     <RadioGroup
-                                        value={filter}
+                                        value={filter.value}
                                         onChange={onSetFilter}
                                         items={radioGroupItems}
                                     />
@@ -112,7 +115,7 @@ const Documents = () => {
                     </div>
                 </div>
 
-                {!loadingSnapshot && !snapshot?.docs.length ? (
+                {!isLoading && !documents?.length ? (
                     <>
                         <div className={style.document_new} onClick={() => dispatch(actions.openCreateDoc())}>
                             <div className={style.document_new__contents}>
@@ -120,23 +123,16 @@ const Documents = () => {
                                 <h2>Create New</h2>
                             </div>
                         </div>
-                        {isCreateDocOpen && (
-                            <CreateBlankModal
-                                name={name}
-                                setName={setName}
-                                onConfirmAction={() => onSubmit(name, setName, user)}
-                                onCloseAction={() => dispatch(actions.closeCreateDoc())}
-                            />
-                        )}
                     </>
                 ) : (
                     <div className={cn(style.document_content, {[style.document_content__mt]: isFixed})}>
-                        {snapshot?.docs.map((item) => (
+                        {documents.map((item) => (
                             <Document
                                 key={item.id}
                                 id={item.id}
-                                title={item.data().title}
-                                date={item.data().createdAt}
+                                title={item.title}
+                                created={item.createdAt}
+                                modified={item.modifiedAt}
                                 img={images.Plus}
                             />
                         ))}

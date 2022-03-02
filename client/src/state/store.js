@@ -3,13 +3,15 @@ import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly"
 
 import app from 'state/reducers/app'
+import document from 'state/reducers/document'
 
 const composeEnhancers = composeWithDevTools({
   name: "Template"
 })
 
 const reducer = combineReducers({
-  app
+  app,
+  document
 })
 
 

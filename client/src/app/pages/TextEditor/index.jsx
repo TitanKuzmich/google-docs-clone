@@ -31,7 +31,6 @@ const TextEditor = () => {
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState)
 
-        console.log(editorState)
         db
             .collection('userDocs')
             .doc(user?.email)
