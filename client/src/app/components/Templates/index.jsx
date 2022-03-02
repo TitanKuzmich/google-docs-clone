@@ -1,5 +1,10 @@
 import React, {useState} from 'react'
 import firebase from "firebase/compat"
+import {useAuthState} from "react-firebase-hooks/auth"
+import {useDispatch, useSelector} from "react-redux"
+
+import * as actions from "state/actions/app"
+import {onSubmit} from "state/dispatchers/app"
 
 import Icon from "components/Icon"
 import Template from "components/Templates/Template"
@@ -9,38 +14,25 @@ import {auth, db} from "lib/firebase"
 import style from './style.module.scss'
 import icons from "assets/svg"
 import images from "assets/img"
-import {useAuthState} from "react-firebase-hooks/auth"
 
 const Templates = () => {
     const [user] = useAuthState(auth)
 
-    const [isCreateOpen, setCreateOpen] = useState(false)
+    const {isCreateDocOpen} = useSelector((state) => state.app)
+    const dispatch = useDispatch()
+
     const [name, setName] = useState("")
 
-    const onSubmit = () => {
-        if (!name) return
-
-        db.collection('userDocs')
-            .doc(user?.email)
-            .collection('docs')
-            .add({
-                title: name,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            })
-
-        setName('')
-        setCreateOpen(false)
-    }
 
     return (
         <section className={style.template_wrapper}>
             <div className={style.template}>
-                {isCreateOpen && (
+                {isCreateDocOpen && (
                     <CreateBlankModal
                         name={name}
                         setName={setName}
-                        onConfirmAction={onSubmit}
-                        onCloseAction={() => setCreateOpen(false)}
+                        onConfirmAction={() => onSubmit(name, setName, user)}
+                        onCloseAction={() => dispatch(actions.closeCreateDoc())}
                     />
                 )}
 
@@ -57,7 +49,7 @@ const Templates = () => {
                     <Template
                         title="Blank"
                         img={images.Plus}
-                        action={() => setCreateOpen(true)}
+                        action={() => dispatch(actions.openCreateDoc())}
                     />
 
                     <Template

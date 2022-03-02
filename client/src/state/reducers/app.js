@@ -4,7 +4,8 @@ import * as actions from "../actions/app"
 
 const defaultState = {
     notifications: [],
-    docId: null
+    docId: null,
+    isCreateDocOpen: false,
 }
 
 const app = createReducer(
@@ -25,6 +26,18 @@ const app = createReducer(
             return {
                 ...state,
                 roomId: payload.docId
+            }
+        },
+        [actions.openCreateDoc.getType()](state, payload) {
+            return {
+                ...state,
+                isCreateDocOpen: true
+            }
+        },
+        [actions.closeCreateDoc.getType()](state, payload) {
+            return {
+                ...state,
+                isCreateDocOpen: false
             }
         }
     },

@@ -1,7 +1,8 @@
-import { Dispatch } from "redux"
 import nextId from "react-id-generator"
 
-import { newNotificationRequest, removeNotificationRequest } from "../actions/app"
+import * as actions from "../actions/app"
+import {db} from "lib/firebase"
+import firebase from "firebase/compat"
 
 // error types: "error" | "success" | "info"
 
@@ -12,13 +13,28 @@ export const newNotification =
 
         const messageLiveTime = Math.max(minDuration, payload.message.split(" ").length * 0.7 * 1000)
 
-        dispatch(newNotificationRequest({ uuid, type: payload.type, message: payload.message }))
+        dispatch(actions.newNotificationRequest({ uuid, type: payload.type, message: payload.message }))
 
         setTimeout(() => {
-            return dispatch(removeNotificationRequest({ uuid }))
+            return dispatch(actions.removeNotificationRequest({ uuid }))
         }, messageLiveTime)
     }
 
 export const removeNotification = (payload) => (dispatch) => {
-    dispatch(removeNotificationRequest({ uuid: payload.uuid }))
+    dispatch(actions.removeNotificationRequest({ uuid: payload.uuid }))
+}
+
+export const onSubmit = (name, setName, user) => (dispatch) => {
+    if (!name) return
+
+    db.collection('userDocs')
+        .doc(user?.email)
+        .collection('docs')
+        .add({
+            title: name,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
+
+    setName('')
+    dispatch(actions.closeCreateDoc)
 }
