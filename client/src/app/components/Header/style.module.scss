@@ -95,34 +95,14 @@
     }
 
     .info_pop_up {
-      position: absolute;
-      z-index: 10;
-      transform-origin: right top;
-      top: calc(100% + 10px);
-      right: 0;
-      background-color: $white;
-      box-shadow: $shadowRgba 0px 3px 8px;
+      @include pop_up();
       display: grid;
       grid-template-rows: 1fr auto;
       justify-items: center;
-      border-radius: 6px;
 
       .sign_out {
-        background-color:$red;
-        color: $white;
-        border-radius: 6px;
-        font-size: 18px;
-        padding: 6px 12px;
+        @include button($red);
         margin: 15px auto 20px auto;
-        cursor: pointer;
-        transition: all .3s ease;
-        border: 1px solid transparent;
-
-        &:hover {
-          border: 1px solid $red;
-          background-color:$white;
-          color: $red;
-        }
       }
 
       &__info {

@@ -66,20 +66,7 @@
   }
 
   &_submit {
-    background-color:$blue;
-    color: $white;
-    border-radius: 6px;
-    font-size: 18px;
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: all .3s ease;
-    border: 1px solid transparent;
-
-    &:hover {
-      border: 1px solid $blue;
-      background-color:$white;
-      color: $blue;
-    }
+    @include button($blue);
   }
 }
 
