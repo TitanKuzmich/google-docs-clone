@@ -59,8 +59,18 @@
     div {
       font-weight: 300;
       font-size: 14px;
-      display: grid;
-      grid-template-columns: 62px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      //grid-template-columns: 62px auto;
+
+      span:nth-child(1) {
+        flex: 62px;
+      }
+
+      span:nth-child(2) {
+        font-size: 12px;
+      }
     }
   }
 }

@@ -7,8 +7,9 @@ const defaultState = {
     filter: {
         value: "",
         title: "",
-        order: ""
+        order: "",
     },
+    searchField: "",
     isLoading: false,
 }
 
@@ -17,7 +18,8 @@ const document = createReducer(
         [actions.getDocumentListRequest.getType()](state, payload) {
             return {
                 ...state,
-                filter: payload,
+                filter: payload.filter,
+                searchField: payload.searchField,
                 isLoading: true
             }
         },

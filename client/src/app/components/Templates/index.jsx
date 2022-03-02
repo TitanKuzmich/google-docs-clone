@@ -19,7 +19,7 @@ const Templates = () => {
     const [user] = useAuthState(auth)
 
     const {isCreateDocOpen} = useSelector((state) => state.app)
-    const {filter} = useSelector((state) => state.document)
+    const {filter, searchField} = useSelector((state) => state.document)
     const dispatch = useDispatch()
 
     const [name, setName] = useState("")
@@ -32,7 +32,7 @@ const Templates = () => {
                     <CreateBlankModal
                         name={name}
                         setName={setName}
-                        onConfirmAction={() => dispatch(createDocument(name, setName, user, filter))}
+                        onConfirmAction={() => dispatch(createDocument(name, setName, user, filter, searchField))}
                         onCloseAction={() => dispatch(actions.closeCreateDoc())}
                     />
                 )}

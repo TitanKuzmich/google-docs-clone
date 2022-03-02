@@ -4,7 +4,8 @@ const config = {
     baseUrl: 'https://link',
     paths: {
 
-    }
+    },
+    modifyIdle: 1000
 }
 
 export default config

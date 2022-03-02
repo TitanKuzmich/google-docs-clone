@@ -7,6 +7,7 @@ import {BallTriangle} from "react-loader-spinner"
 import {useDispatch, useSelector} from "react-redux"
 
 import * as actions from "state/actions/app"
+import {getDocumentList} from "state/dispatchers/document"
 
 import {auth, db} from "lib/firebase"
 import Icon from "components/Icon"
@@ -16,12 +17,10 @@ import RadioGroup from "components/Radio/Group"
 import style from './style.module.scss'
 import icons from "assets/svg"
 import images from "assets/img"
-import * as log from "sass"
-import {getDocumentList} from "state/dispatchers/document"
 
 const radioGroupItems = [
     {value: "title", label: "Title", order: "asc"},
-    {value: "lastModified", label: "Last Opened", order: "desc"},
+    {value: "modifiedAt", label: "Last Modified", order: "desc"},
     {value: "createdAt", label: "Created Date", order: "desc"}
 ]
 
@@ -29,11 +28,11 @@ const Documents = () => {
     const [user] = useAuthState(auth)
 
     const dispatch = useDispatch()
-    const {documents, isLoading} = useSelector(state => state.document)
+    const {documents, isLoading, filter, searchField} = useSelector(state => state.document)
 
     const [isFixed, setFixed] = useState(false)
     const [isSortOpen, setSortOpen] = useState(false)
-    const [filter, setFilter] = useState({
+    const [filterLocal, setFilterLocal] = useState({
         title: radioGroupItems[2].title,
         value: radioGroupItems[2].value,
         order: radioGroupItems[2].order
@@ -42,7 +41,7 @@ const Documents = () => {
     const popupRef = useRef(null)
 
     const onSetFilter = (option) => {
-        option.value && setFilter({
+        option.value && setFilterLocal({
             title: option.title,
             value: option.value,
             order: option.order
@@ -54,6 +53,7 @@ const Documents = () => {
     }
 
     useEffect(() => {
+        filter.value && setFilterLocal(filter)
         window.addEventListener("scroll", onFixContentHeader)
         return () => window.removeEventListener("scroll", onFixContentHeader)
     }, [])
@@ -71,8 +71,8 @@ const Documents = () => {
     }, [popupRef])
 
     useEffect(async () => {
-        dispatch(getDocumentList(user, filter))
-    }, [filter])
+        dispatch(getDocumentList(user, filterLocal, searchField))
+    }, [filterLocal])
 
     if (isLoading) {
         return (
@@ -105,7 +105,7 @@ const Documents = () => {
                             {isSortOpen && (
                                 <div className={style.sort_pop_up}>
                                     <RadioGroup
-                                        value={filter.value}
+                                        value={filterLocal.value}
                                         onChange={onSetFilter}
                                         items={radioGroupItems}
                                     />

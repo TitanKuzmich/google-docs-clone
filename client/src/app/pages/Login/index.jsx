@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 import images from "assets/img"
 import {auth, provider} from "lib/firebase"
 

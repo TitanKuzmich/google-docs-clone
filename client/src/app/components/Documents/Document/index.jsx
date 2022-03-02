@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import dayjs from "dayjs"
 import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {useAuthState} from "react-firebase-hooks/auth"
@@ -16,7 +17,7 @@ const Template = ({id, img, title, created, modified}) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {filter} = useSelector((state) => state.document)
+    const {filter, searchField} = useSelector((state) => state.document)
 
     const [isDeleteOpen, setDeleteOpen] = useState(false)
 
@@ -25,7 +26,7 @@ const Template = ({id, img, title, created, modified}) => {
             {isDeleteOpen && (
                 <DeleteModal
                     text={`Are you sure you want to delete '${title}'`}
-                    onConfirmAction={() => dispatch(deleteDocument(user, id, filter, setDeleteOpen))}
+                    onConfirmAction={() => dispatch(deleteDocument(user, id, filter, setDeleteOpen, searchField))}
                     onCloseAction={() => setDeleteOpen(false)}
                 />
             )}
@@ -53,7 +54,7 @@ const Template = ({id, img, title, created, modified}) => {
                     <div>
                         <span>Created:</span>
                         <span>
-                            {created?.toDate().toLocaleDateString()}, {created?.toDate().getHours()}:{created?.toDate().getMinutes()}
+                            {dayjs(created?.toDate()).format("MM.DD.YYYY")}, {dayjs(created?.toDate()).format("HH:mm")}
                         </span>
                     </div>
                     <div>
@@ -61,7 +62,7 @@ const Template = ({id, img, title, created, modified}) => {
                         {modified
                             ? (
                                 <span>
-                                    {modified.toDate().toLocaleDateString()}, {modified.toDate().getHours()}:{modified.toDate().getMinutes()}
+                                    {dayjs(modified?.toDate()).format("MM.DD.YYYY")}, {dayjs(modified?.toDate()).format("HH:mm")}
                                 </span>
                             ) : (
                                 <span>-</span>
