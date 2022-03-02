@@ -64,7 +64,7 @@
     align-items: center;
     justify-content: center;
     position: sticky;
-    top: 70px;
+    top: 0;
     left: 0;
     z-index: 50;
     margin: 0 auto 12px auto;
@@ -72,13 +72,20 @@
     box-shadow: 0 0 5px 0 $shadowRgba;
   }
 
+  &_container {
+    margin-top: 70px;
+    height: calc(100vh - 70px);
+    overflow-y: scroll;
+  }
+
   &_page {
     width: 6.5in;
-    height: 9in;
-    padding: 10px;
+    min-height: calc(100vh - 140px);
+    padding: 10px 30px;
     background-color: $white;
-    margin: 90px auto 0 auto;
+    margin: 0 auto 30px auto;
     box-shadow: 0 0 5px 0 $shadowRgba;
+    cursor: text;
   }
 }
 

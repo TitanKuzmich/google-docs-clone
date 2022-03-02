@@ -18,7 +18,7 @@ const Templates = () => {
     const [name, setName] = useState("")
 
     const onSubmit = () => {
-        if(!name) return
+        if (!name) return
 
         db.collection('userDocs')
             .doc(user?.email)
@@ -33,64 +33,65 @@ const Templates = () => {
     }
 
     return (
-        <section className={style.template}>
+        <section className={style.template_wrapper}>
+            <div className={style.template}>
+                {isCreateOpen && (
+                    <CreateBlankModal
+                        name={name}
+                        setName={setName}
+                        onConfirmAction={onSubmit}
+                        onCloseAction={() => setCreateOpen(false)}
+                    />
+                )}
 
-            {isCreateOpen && (
-                <CreateBlankModal
-                    name={name}
-                    setName={setName}
-                    onConfirmAction={onSubmit}
-                    onCloseAction={() => setCreateOpen(false)}
-                />
-            )}
+                <div className={style.template_header}>
+                    <h2>Start a new document</h2>
 
-            <div className={style.template_header}>
-                <h2>Start a new document</h2>
-
-                <div className={style.icon_wrapper}>
-                    <Icon icon={icons.Dots} classIcon={style.dots_icon}/>
+                    <div className={style.icon_wrapper}>
+                        <Icon icon={icons.Dots} classIcon={style.dots_icon}/>
+                    </div>
                 </div>
-            </div>
 
-            <div className={style.template_content}>
+                <div className={style.template_content}>
 
-                <Template
-                    title="Blank"
-                    img={images.Plus}
-                    action={() => setCreateOpen(true)}
-                />
+                    <Template
+                        title="Blank"
+                        img={images.Plus}
+                        action={() => setCreateOpen(true)}
+                    />
 
-                <Template
-                    title="Project Proposal"
-                    subtitle="Topic"
-                    img={images.Project}
-                    action={() => {
-                    }}
-                />
+                    <Template
+                        title="Project Proposal"
+                        subtitle="Topic"
+                        img={images.Project}
+                        action={() => {
+                        }}
+                    />
 
-                <Template
-                    title="Project Proposal"
-                    subtitle="Spearmint"
-                    img={images.Proposal}
-                    action={() => {
-                    }}
-                />
+                    <Template
+                        title="Project Proposal"
+                        subtitle="Spearmint"
+                        img={images.Proposal}
+                        action={() => {
+                        }}
+                    />
 
-                <Template
-                    title="Meeting Notes"
-                    subtitle="Modern Winter"
-                    img={images.Notes}
-                    action={() => {
-                    }}
-                />
+                    <Template
+                        title="Meeting Notes"
+                        subtitle="Modern Winter"
+                        img={images.Notes}
+                        action={() => {
+                        }}
+                    />
 
-                <Template
-                    title="Newsletter"
-                    subtitle="Lively"
-                    img={images.Newsletter}
-                    action={() => {
-                    }}
-                />
+                    <Template
+                        title="Newsletter"
+                        subtitle="Lively"
+                        img={images.Newsletter}
+                        action={() => {
+                        }}
+                    />
+                </div>
             </div>
         </section>
     )

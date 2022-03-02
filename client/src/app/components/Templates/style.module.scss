@@ -6,6 +6,10 @@
   width: 65%;
   padding: 30px 0;
 
+  &_wrapper {
+    background-color: $grey;
+  }
+
   &_header{
     display: flex;
     align-items: center;
